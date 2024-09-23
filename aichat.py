@@ -33,8 +33,8 @@ def select_model():
     else:
         model_name = "gpt-4"
 
-    # スライダーを追加し、temperatureを0から2までの範囲で選択可能にする
-    # 初期値は0.0、刻み幅は0.01とする
+    # Add a slider to allow the selection of temperature within a range from 0 to 2
+    # The initial value is set to 0.0, with a step size of 0.01
     temperature = st.sidebar.slider("Temperature:", min_value=0.0, max_value=2.0, value=0.0, step=0.01)
 
     return ChatOpenAI(temperature=temperature, model_name=model_name)
@@ -52,8 +52,8 @@ def main():
     llm = select_model()
     init_messages()
 
-    # ユーザーの入力を監視
-    if user_input := st.chat_input("聞きたいことを入力してね！"):
+    # Monitor the user's input
+    if user_input := st.chat_input("message chatapp"):
         st.session_state.messages.append(HumanMessage(content=user_input))
         with st.spinner("ChatGPT is typing ..."):
             answer, cost = get_answer(llm, st.session_state.messages)
